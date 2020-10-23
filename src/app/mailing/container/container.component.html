@@ -1,0 +1,16 @@
+<div class="mailing-container">
+    <aside class="mailing-container__aside">
+        <div class="app-title">Рассылки</div>
+
+        <ul class="app-menu">
+            <li class="app-menu__item" [ngClass]="{active: activeMenu['sended']}" (click)="navigate('/sended')">
+                Отправлены</li>
+            <li class="app-menu__item" [ngClass]="{active: activeMenu['drafts']}" (click)="navigate('/drafts')">
+                Черновики</li>
+            <li class="app-menu__item">Запланированы</li>
+        </ul>
+    </aside>
+    <main class="main-area-container">
+        <router-outlet></router-outlet>
+    </main>
+</div>
