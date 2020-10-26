@@ -1,0 +1,47 @@
+.name {
+    &-header {
+        font-weight: 600;
+        margin: 5px 0;
+    }
+
+    &-desc {
+        margin: 5px 0;
+    }
+
+    &-link {
+        margin: 5px 0;
+        display: flex;
+        align-items: center;
+
+        mat-icon {
+            margin-right: 5px;
+        }
+    }
+}
+
+.state {
+    display: flex;
+    align-items: center;
+
+    &-bage {
+        width: 6px;
+        height: 6px;
+        border-radius: 3px;
+        margin-right: 5px;
+
+        &.active {
+            background-color: green;
+        }
+    }
+
+    &-text {}
+}
+
+.number-column {
+    display: flex;
+    align-items: center;
+
+    &__text {
+        margin-right: 5px;
+    }
+}

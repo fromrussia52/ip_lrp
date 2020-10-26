@@ -6,6 +6,8 @@ import { MailingService } from './mailing.service';
 import { SendedComponent } from './sended/sended.component';
 import { DraftsComponent } from './drafts/drafts.component';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 /**
  * material modules
@@ -13,6 +15,10 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatStepperModule } from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [{
     path: '',
@@ -42,10 +48,16 @@ const routes: Routes = [{
     ],
     imports: [
         CommonModule,
+        ReactiveFormsModule,
         RouterModule.forChild(routes),
         MatIconModule,
         MatButtonModule,
-        MatDividerModule
+        MatDividerModule,
+        MatTableModule,
+        MatCheckboxModule,
+        MatStepperModule,
+        MatFormFieldModule,
+        MatInputModule
     ],
     providers: [
         MailingService

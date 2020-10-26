@@ -1,0 +1,6 @@
+@import '../scss/variables';
+
+:host ::ng-deep .mat-step-icon.mat-step-icon-selected {
+    background-color: $bg-blue !important;
+    ;
+}

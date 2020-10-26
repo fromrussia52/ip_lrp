@@ -1,1 +1,74 @@
-create
+<div class="create-area-container">
+    <div class="app-title mb-44">
+        <span class="app-title__name">Новая рассылка</span>
+        <div class="block-right">
+            <button mat-button color="primary" class="cl-blue">Отмена</button>
+            <button mat-raised-button color="primary" class="bg-blue">Сохранить и
+                закрыть</button>
+        </div>
+    </div>
+
+    <mat-horizontal-stepper #stepper class="stepper">
+        <mat-step [stepControl]="firstFormGroup">
+            <div class="step-container">
+                <div class="step-container__main">
+                    <div class="main__left">
+                        <h4>Создайте сообщение</h4>
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Текстовое сообщение</ng-template>
+                            <mat-form-field>
+                                <mat-label>Name</mat-label>
+                                <input matInput formControlName="desc" placeholder="Last name, First name" required>
+                            </mat-form-field>
+                        </form>
+                    </div>
+                    <div class="main__right">
+                        <mat-icon class="main__right-icon">textsms</mat-icon>
+                        <h4>Протестируйте перед отправкой</h4>
+                        <span class="main__right-text"></span>
+                        <button mat-stroked-button color="primary" class="cl-blue">
+                            <mat-icon class="cl-blue">reply</mat-icon>
+                            Отправить себе
+                        </button>
+                    </div>
+                </div>
+                <div class="step-container__footer">
+                    <button mat-raised-button color="primary" matStepperNext class="bg-blue">Далее</button>
+                </div>
+            </div>
+            <!--<form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Сообщение</ng-template>
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="desc" placeholder="Last name, First name" required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>-->
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Отправка</ng-template>
+            <p>You are now done.</p>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Сегментация</ng-template>
+                <mat-form-field>
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="title" placeholder="Ex. 1 Main St, New York, NY" required>
+                </mat-form-field>
+            </form>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+
+
+</div>
