@@ -19,6 +19,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditorComponent } from './create/editor/editor.component';
+import { EditorDirective } from './create/editor/editor.directive';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatMenuModule } from '@angular/material/menu';
 
 const routes: Routes = [{
     path: '',
@@ -44,7 +49,9 @@ const routes: Routes = [{
         ContainerComponent,
         SendedComponent,
         DraftsComponent,
-        CreateComponent
+        CreateComponent,
+        EditorComponent,
+        EditorDirective
     ],
     imports: [
         CommonModule,
@@ -57,7 +64,10 @@ const routes: Routes = [{
         MatCheckboxModule,
         MatStepperModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatMenuModule
     ],
     providers: [
         MailingService

@@ -1,7 +1,9 @@
-:host ::ng-deep .mat-horizontal-content-container {
-    flex: 1;
+@import "../../../scss/variables";
 
-    .mat-horizontal-stepper-content {
-        height: 100%;
-    }
+:host ::ng-deep .mat-radio-outer-circle {
+    border-color: $cl-blue !important;
+}
+
+:host ::ng-deep .mat-radio-inner-circle {
+    background-color: $cl-blue !important;
 }

@@ -1,0 +1,24 @@
+<div class="editor-container" [formGroup]="form">
+    <div class="editor-title">
+        <h4>Текстовое сообщение</h4>
+    </div>
+    <div class="editor-text-field">
+        <div class="editor-text-field__main" divContentControl formControlName="text" contenteditable="true"
+            data-placeholder="Текст сообщения"></div>
+        <div class="editor-text-field__footer">
+            <button mat-icon-button color="primary" class="cl-gray">
+                <mat-icon>tag_faces</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" class="cl-gray">
+                <mat-icon>navigate_before</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" class="cl-gray">
+                <mat-icon>navigate_next</mat-icon>
+            </button>
+            <span class="right-block cl-gray">0 / 600</span>
+        </div>
+    </div>
+    <div class="editor-footer">
+        <button mat-button color="primary" class="cl-blue">Добавить кнопку</button>
+    </div>
+</div>

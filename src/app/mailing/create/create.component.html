@@ -7,25 +7,50 @@
                 закрыть</button>
         </div>
     </div>
-
     <mat-horizontal-stepper #stepper class="stepper">
         <mat-step [stepControl]="firstFormGroup">
             <div class="step-container">
                 <div class="step-container__main">
                     <div class="main__left">
+                        <ng-template matStepLabel>Cообщение</ng-template>
                         <h4>Создайте сообщение</h4>
                         <form [formGroup]="firstFormGroup">
-                            <ng-template matStepLabel>Текстовое сообщение</ng-template>
-                            <mat-form-field>
-                                <mat-label>Name</mat-label>
-                                <input matInput formControlName="desc" placeholder="Last name, First name" required>
-                            </mat-form-field>
+                            <mailing-editor formControlName="desc"></mailing-editor>
                         </form>
+                        <button mat-stroked-button color="primary" class="cl-blue my-20">
+                            <mat-icon class="cl-blue">reply</mat-icon>
+                            Быстрый ответ
+                        </button>
+                        <h4>Добавить карточку</h4>
+                        <div class="btns-block">
+                            <button mat-stroked-button color="primary" class="cl-blue">
+                                <mat-icon class="cl-blue">message</mat-icon>
+                                текст
+                            </button>
+                            <button mat-stroked-button color="primary" class="cl-blue">
+                                <mat-icon class="cl-blue">image</mat-icon>
+                                Картинка
+                            </button>
+                            <button mat-stroked-button color="primary" class="cl-blue">
+                                <mat-icon class="cl-blue">attach_file</mat-icon>
+                                файл
+                            </button>
+                            <button mat-stroked-button color="primary" class="cl-blue">
+                                <mat-icon class="cl-blue">help_outline</mat-icon>
+                                вопрос
+                            </button>
+                            <button mat-stroked-button color="primary" class="cl-blue">
+                                <mat-icon class="cl-blue">ondemand_video</mat-icon>
+                                Картинка
+                            </button>
+                        </div>
                     </div>
                     <div class="main__right">
-                        <mat-icon class="main__right-icon">textsms</mat-icon>
+                        <mat-icon class="main__right-icon cl-gray">textsms</mat-icon>
                         <h4>Протестируйте перед отправкой</h4>
-                        <span class="main__right-text"></span>
+                        <span class="main__right-text cl-gray">
+                            Перед отправкой сообщения протестируйте все доступы, которые запрашивает платформа
+                        </span>
                         <button mat-stroked-button color="primary" class="cl-blue">
                             <mat-icon class="cl-blue">reply</mat-icon>
                             Отправить себе
@@ -36,39 +61,89 @@
                     <button mat-raised-button color="primary" matStepperNext class="bg-blue">Далее</button>
                 </div>
             </div>
-            <!--<form [formGroup]="firstFormGroup">
-                <ng-template matStepLabel>Сообщение</ng-template>
-                <mat-form-field>
-                    <mat-label>Name</mat-label>
-                    <input matInput formControlName="desc" placeholder="Last name, First name" required>
-                </mat-form-field>
-                <div>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
-            </form>-->
         </mat-step>
         <mat-step>
-            <ng-template matStepLabel>Отправка</ng-template>
-            <p>You are now done.</p>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
+            <div class="step-container">
+                <div class="step-container__main">
+                    <div class="main__left">
+                        <ng-template matStepLabel>Сегментация</ng-template>
+                        <h4>Выберите канал</h4>
+                        <mat-form-field appearance="outline" class="custom-field">
+                            <mat-select placeholder="Не выбран">
+                                <mat-option value="option">Канал1</mat-option>
+                                <mat-option value="option">Канал2</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <h4>Выберите подписчиков, используя правила</h4>
+                        <mat-form-field appearance="outline" class="custom-field">
+                            <mat-label>Подписчики, которые соответствуют</mat-label>
+                            <mat-select placeholder="Не выбран">
+                                <mat-option value="option">Всем этим правилам</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <button mat-stroked-button color="primary" class="cl-blue my-20">
+                            <mat-icon class="cl-blue">add</mat-icon>
+                            Добавить правило
+                        </button>
+                    </div>
+                    <div class="main__right">
+                        <mat-icon class="main__right-icon cl-gray">groups</mat-icon>
+                        <h4>0 подписчиков соответствуют правилам</h4>
+                        <span class="main__right-text cl-gray">
+                            уточните сегментацию
+                        </span>
+                    </div>
+                </div>
+                <div class="step-container__footer">
+                    <button mat-button matStepperPrevious class="cl-blue">Назад</button>
+                    <button mat-raised-button color="primary" matStepperNext class="bg-blue">Далее</button>
+                </div>
             </div>
         </mat-step>
         <mat-step [stepControl]="secondFormGroup">
-            <form [formGroup]="secondFormGroup">
-                <ng-template matStepLabel>Сегментация</ng-template>
-                <mat-form-field>
-                    <mat-label>Address</mat-label>
-                    <input matInput formControlName="title" placeholder="Ex. 1 Main St, New York, NY" required>
-                </mat-form-field>
-            </form>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
+            <div class="step-container">
+                <div class="step-container__main">
+                    <div class="main__left">
+                        <ng-template matStepLabel>Отправка</ng-template>
+                        <h4>Мы отпрвим это сообщение 25 пользователям</h4>
+                        <form [formGroup]="firstFormGroup">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Введите заголовок</mat-label>
+                                <input matInput placeholder="Введите заголовок">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="custom-field">
+                                <mat-label>Тег сообщения для facebook</mat-label>
+                                <mat-select placeholder="Не выбран">
+                                    <mat-option value="option">Уведомление о событии</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div class="step3-text cl-gray">
+                                Теги позволяют отправить сообщения после 24 часов от последнего взаимодействия с
+                                подписчиком. Убедитесь, что содержание сообщений соответствует выбранному тегу. <a
+                                    href="" class="cl-blue">Читайте подробнее.</a>
+                            </div>
+                            <h4>Время отправки</h4>
+                            <mat-radio-group class="select-time">
+                                <mat-radio-button value="1">Отправить сейчас</mat-radio-button>
+                                <mat-radio-button value="2">Запланировать время</mat-radio-button>
+                            </mat-radio-group>
+                        </form>
+                        <button mat-stroked-button color="primary" class="cl-blue my-20">
+                            <mat-icon class="cl-blue">add</mat-icon>
+                            Отправить сейчас
+                        </button>
+                    </div>
+                    <div class="main__right bg-gray2">
+                        <h4>Мы готовы к отправке</h4>
+                        <span class="main__right-text cl-gray">
+                            Сообщение будет отправлено 12345 пользователям
+                        </span>
+                    </div>
+                </div>
+                <div class="step-container__footer">
+                    <button mat-button matStepperPrevious class="cl-blue">Назад</button>
+                </div>
             </div>
         </mat-step>
     </mat-horizontal-stepper>
-
-
 </div>

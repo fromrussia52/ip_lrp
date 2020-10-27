@@ -97,26 +97,80 @@
                 border-bottom: 1px solid rgba(0, 0, 0, .12);
 
                 .main__left {
-                    flex: 0 0 60%;
+                    flex: 0 0 55%;
                     border-right: 1px solid rgba(0, 0, 0, .12);
+                    padding-right: 48px;
+
+                    .step3-text {
+                        margin-top: -18px;
+                        font-size: 12px;
+
+                        a {
+                            text-decoration: none;
+                        }
+                    }
                 }
 
                 .main__right {
+                    padding-top: 50px;
                     flex: 0 0 40%;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
 
-                    &-icon {}
+                    &-icon {
+                        font-size: 70px;
+                        width: 70px;
+                        height: 70px;
+                    }
 
-                    &-text {}
+                    &-text {
+                        text-align: center;
+                        margin-bottom: 1rem;
+                    }
+                }
+
+                .custom-field {
+                    display: block;
+                }
+
+                .select-time {
+                    display: flex;
+                    flex-direction: column;
+
+                    mat-radio-button {
+                        margin: 5px;
+                    }
                 }
             }
 
             &__footer {
                 padding: 20px 0;
                 height: 40px;
+                position: absolute;
+                bottom: 0;
             }
         }
     }
+
+    .btns-block {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+
+        button {
+            text-transform: uppercase;
+            margin-right: 10px;
+            margin-bottom: 10px;
+
+            mat-icon {
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+.my-20 {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
 }
