@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, forwardRef, HostListener, OnDestroy } from '@angular/core';
-import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 export const VALUE_ACCESSOR: any = {
@@ -22,6 +22,7 @@ export class EditorComponent implements OnDestroy, ControlValueAccessor {
     private subscriptions: Subscription[] = [];
 
     public form: FormGroup = null;
+    public innerValue: string = null;
 
     @HostListener("blur")
     public onTouched() {
@@ -32,10 +33,11 @@ export class EditorComponent implements OnDestroy, ControlValueAccessor {
         private fb: FormBuilder
     ) {
         this.form = this.fb.group({
-            text: ['']
+            text: ['', [Validators.required, Validators.maxLength(600)]]
         });
 
-        this.form.controls.text.valueChanges.subscribe(value => this.onChangeCallback(value));
+        let subs$ = this.form.controls.text.valueChanges.subscribe(value => this.onChangeCallback(value));
+        this.subscriptions.push(subs$);
     }
 
     ngOnDestroy() {
@@ -53,6 +55,7 @@ export class EditorComponent implements OnDestroy, ControlValueAccessor {
     }
 
     writeValue(value: any) {
+        this.innerValue = value;
         this.onChangeCallback(value);
     }
 }

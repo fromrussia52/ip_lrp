@@ -3,7 +3,7 @@
         <span class="app-title__name">Новая рассылка</span>
         <div class="block-right">
             <button mat-button color="primary" class="cl-blue">Отмена</button>
-            <button mat-raised-button color="primary" class="bg-blue">Сохранить и
+            <button (click)="save()" mat-raised-button color="primary" class="bg-blue">Сохранить и
                 закрыть</button>
         </div>
     </div>
@@ -14,7 +14,7 @@
                     <div class="main__left">
                         <ng-template matStepLabel>Cообщение</ng-template>
                         <h4>Создайте сообщение</h4>
-                        <form [formGroup]="firstFormGroup">
+                        <form [formGroup]="firstFormGroup" class="mailing-editor-container">
                             <mailing-editor formControlName="desc"></mailing-editor>
                         </form>
                         <button mat-stroked-button color="primary" class="cl-blue my-20">
@@ -106,15 +106,15 @@
                     <div class="main__left">
                         <ng-template matStepLabel>Отправка</ng-template>
                         <h4>Мы отпрвим это сообщение 25 пользователям</h4>
-                        <form [formGroup]="firstFormGroup">
+                        <form [formGroup]="secondFormGroup">
                             <mat-form-field appearance="outline">
                                 <mat-label>Введите заголовок</mat-label>
-                                <input matInput placeholder="Введите заголовок">
+                                <input formControlName="title" matInput placeholder="Введите заголовок">
                             </mat-form-field>
                             <mat-form-field appearance="outline" class="custom-field">
                                 <mat-label>Тег сообщения для facebook</mat-label>
-                                <mat-select placeholder="Не выбран">
-                                    <mat-option value="option">Уведомление о событии</mat-option>
+                                <mat-select formControlName="tag" placeholder="Не выбран">
+                                    <mat-option value="option1">Уведомление о событии</mat-option>
                                 </mat-select>
                             </mat-form-field>
                             <div class="step3-text cl-gray">
@@ -128,7 +128,7 @@
                                 <mat-radio-button value="2">Запланировать время</mat-radio-button>
                             </mat-radio-group>
                         </form>
-                        <button mat-stroked-button color="primary" class="cl-blue my-20">
+                        <button (click)="send()" mat-stroked-button color="primary" class="cl-blue my-20">
                             <mat-icon class="cl-blue">add</mat-icon>
                             Отправить сейчас
                         </button>

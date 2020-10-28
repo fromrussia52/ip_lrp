@@ -1,8 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MailingService } from '../mailing.service';
+
+interface IData {
+    title: string;
+    tag: string;
+    desc: string;
+}
 
 @Component({
     selector: 'mailing-create',
@@ -16,16 +22,24 @@ export class CreateComponent implements OnInit, OnDestroy {
     constructor(
         private mailingService: MailingService,
         private router: Router,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private activateRoute: ActivatedRoute
     ) {
         this.firstFormGroup = this.fb.group({
-            desc: ['']
+            desc: ['', [Validators.required]]
         });
 
         this.secondFormGroup = this.fb.group({
-            title: [''],
-            tag: ['']
+            title: ['', [Validators.required]],
+            tag: ['', [Validators.required]]
         });
+
+        let subs_$1 = this.activateRoute.params.subscribe(params => {
+            if (params['number'] !== null) {
+                this.getDraft(params['number']);
+            }
+        });
+        this.subscriptions.push(subs_$1);
     }
 
     subscriptions: Subscription[] = [];
@@ -44,7 +58,29 @@ export class CreateComponent implements OnInit, OnDestroy {
     }
 
     send() {
-        const value = {};
-        this.mailingService.send(value);
+        if (this.firstFormGroup.invalid || this.secondFormGroup.invalid) {
+            alert('Некорректно заполнена форма');
+            return;
+        }
+
+        let value = { ...this.secondFormGroup.value, ...this.firstFormGroup.value };
+        this.mailingService.send(value).subscribe(_ => {
+            this.navigate('/sended');
+        });
+    }
+
+    save() {
+        let value = { ...this.secondFormGroup.value, ...this.firstFormGroup.value };
+        this.mailingService.save(value).subscribe(_ => {
+            this.navigate('/drafts');
+        });
+    }
+
+    getDraft(index: number) {
+        this.mailingService.getSaved(index).subscribe((data: IData) => {
+            this.firstFormGroup.controls.desc.setValue(data.desc);
+            this.secondFormGroup.controls.title.setValue(data.title);
+            this.secondFormGroup.controls.tag.setValue(data.tag);
+        });
     }
 }

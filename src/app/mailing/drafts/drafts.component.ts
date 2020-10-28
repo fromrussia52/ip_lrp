@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
+import { MailingService } from '../mailing.service';
 
 export interface MailingElement {
     title: string;
@@ -30,15 +31,23 @@ export class DraftsComponent implements OnInit, OnDestroy {
     };
 
     constructor(
-        private router: Router
+        private router: Router,
+        private mailingService: MailingService
     ) { }
 
     subscriptions: Subscription[] = [];
 
     ngOnInit() {
-        this.dataSource.data = [
-            { title: 'test', desc: 'qdqdkqwd qw', tag: 'face', state: 'Активна', sended: 123, viewed: 322, clicked: 212, created: Intl.DateTimeFormat([], this.dateFormat).format(Date.now()), agent: 'Carl Jenkins' }
-        ];
+        this.getData();
+    }
+
+    private getData() {
+        this.mailingService.getSaved().subscribe((value: any[]) => {
+            this.dataSource.data = value.map(v => {
+                const newValue = { ...v, created: Intl.DateTimeFormat([], this.dateFormat).format(Date.now()) };
+                return newValue;
+            });
+        });
     }
 
     ngOnDestroy() {
@@ -59,5 +68,29 @@ export class DraftsComponent implements OnInit, OnDestroy {
 
     masterToggle() {
         this.isAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(row => this.selection.select(row));
+    }
+
+    get titleText() {
+        const len = this.dataSource.data.length;
+        let text = '';
+        const ost = len % 10;
+        if ((len >= 5 && len <= 20) || (ost >= 5 && ost <= 9) || ost === 0) {
+            text = 'Черновиков';
+        } else if (ost === 1) {
+            text = 'Черновик';
+        } else if (ost >= 2 && ost <= 4) {
+            text = 'Черновика';
+        }
+        return `${len} ${text}`;
+    }
+
+    edit(index: number) {
+        this.router.navigate(['create', index]);
+    }
+
+    delete(index: number) {
+        this.mailingService.deleteSaved(index).subscribe(data => {
+            this.getData();
+        });
     }
 }

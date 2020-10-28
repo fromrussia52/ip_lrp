@@ -24,6 +24,7 @@ import { EditorDirective } from './create/editor/editor.directive';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
+import { SafeHtmlPipeModule } from '../pipes/savehtml/safehtml.module';
 
 const routes: Routes = [{
     path: '',
@@ -40,6 +41,10 @@ const routes: Routes = [{
         component: DraftsComponent
     }, {
         path: 'create',
+        redirectTo: 'create/',
+        pathMatch: 'full'
+    }, {
+        path: 'create/:number',
         component: CreateComponent
     }]
 }];
@@ -57,6 +62,7 @@ const routes: Routes = [{
         CommonModule,
         ReactiveFormsModule,
         RouterModule.forChild(routes),
+        SafeHtmlPipeModule,
         MatIconModule,
         MatButtonModule,
         MatDividerModule,

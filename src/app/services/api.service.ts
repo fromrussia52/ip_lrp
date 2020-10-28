@@ -8,16 +8,16 @@ export class ApiService {
     constructor() { }
 
     get(key: string): Observable<any> {
+        let value = [];
         if (localStorage.getItem(key)) {
-            const value = JSON.parse(localStorage.getItem(key));
-            return of(value);
+            value = JSON.parse(localStorage.getItem(key));
         }
-        return of(null);
+        return of(value);
     }
 
     set(key, value) {
         const str = JSON.stringify(value);
         localStorage.setItem(key, str);
-        return of(true);
+        return of(str);
     }
 }

@@ -3,8 +3,8 @@
         <h4>Текстовое сообщение</h4>
     </div>
     <div class="editor-text-field">
-        <div class="editor-text-field__main" divContentControl formControlName="text" contenteditable="true"
-            data-placeholder="Текст сообщения"></div>
+        <div class="editor-text-field__main" divContentControl formControlName="text" [innerHtml]="innerValue"
+            contenteditable="true" data-placeholder="Текст сообщения"></div>
         <div class="editor-text-field__footer">
             <button mat-icon-button color="primary" class="cl-gray">
                 <mat-icon>tag_faces</mat-icon>
@@ -15,7 +15,7 @@
             <button mat-icon-button color="primary" class="cl-gray">
                 <mat-icon>navigate_next</mat-icon>
             </button>
-            <span class="right-block cl-gray">0 / 600</span>
+            <span class="right-block cl-gray">{{form.controls.text.value.length}} / 600</span>
         </div>
     </div>
     <div class="editor-footer">
