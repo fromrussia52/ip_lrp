@@ -18,6 +18,8 @@ interface IData {
 export class CreateComponent implements OnInit, OnDestroy {
     firstFormGroup: FormGroup = null;
     secondFormGroup: FormGroup = null;
+    thirdFormGroup: FormGroup = null;
+    segments: any[] = null;
 
     constructor(
         private mailingService: MailingService,
@@ -34,12 +36,23 @@ export class CreateComponent implements OnInit, OnDestroy {
             tag: ['', [Validators.required]]
         });
 
+        this.thirdFormGroup = this.fb.group({
+            channel: ['option1']
+        });
+
         let subs_$1 = this.activateRoute.params.subscribe(params => {
             if (params['number'] !== null) {
                 this.getDraft(params['number']);
             }
         });
         this.subscriptions.push(subs_$1);
+
+        this.segments = Array(100);
+        this.segments.fill({
+            avatar: '/assets/images/avatar.jpg',
+            name: 'Irma Lane',
+            number: 1849
+        });
     }
 
     subscriptions: Subscription[] = [];
@@ -82,5 +95,9 @@ export class CreateComponent implements OnInit, OnDestroy {
             this.secondFormGroup.controls.title.setValue(data.title);
             this.secondFormGroup.controls.tag.setValue(data.tag);
         });
+    }
+
+    get channel() {
+        return this.thirdFormGroup.controls.channel.value;
     }
 }

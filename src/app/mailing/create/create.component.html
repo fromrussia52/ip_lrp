@@ -1,5 +1,5 @@
 <div class="create-area-container">
-    <div class="app-title mb-44">
+    <div class="app-title px10 mb-44">
         <span class="app-title__name">Новая рассылка</span>
         <div class="block-right">
             <button mat-button color="primary" class="cl-blue">Отмена</button>
@@ -45,7 +45,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="main__right">
+                    <div class="main__right center-h">
                         <mat-icon class="main__right-icon cl-gray">textsms</mat-icon>
                         <h4>Протестируйте перед отправкой</h4>
                         <span class="main__right-text cl-gray">
@@ -57,46 +57,64 @@
                         </button>
                     </div>
                 </div>
-                <div class="step-container__footer">
-                    <button mat-raised-button color="primary" matStepperNext class="bg-blue">Далее</button>
-                </div>
             </div>
         </mat-step>
-        <mat-step>
+        <mat-step [stepControl]="thirdFormGroup">
             <div class="step-container">
                 <div class="step-container__main">
                     <div class="main__left">
                         <ng-template matStepLabel>Сегментация</ng-template>
                         <h4>Выберите канал</h4>
-                        <mat-form-field appearance="outline" class="custom-field">
-                            <mat-select placeholder="Не выбран">
-                                <mat-option value="option">Канал1</mat-option>
-                                <mat-option value="option">Канал2</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <h4>Выберите подписчиков, используя правила</h4>
-                        <mat-form-field appearance="outline" class="custom-field">
-                            <mat-label>Подписчики, которые соответствуют</mat-label>
-                            <mat-select placeholder="Не выбран">
-                                <mat-option value="option">Всем этим правилам</mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                        <form [formGroup]="thirdFormGroup">
+                            <mat-form-field appearance="outline" class="custom-field">
+                                <mat-select formControlName="channel" placeholder="Не выбран">
+                                    <mat-option value="option1">Канал1</mat-option>
+                                    <mat-option value="option2">Канал2</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <h4>Выберите подписчиков, используя правила</h4>
+                            <mat-form-field appearance="outline" class="custom-field">
+                                <mat-label>Подписчики, которые соответствуют</mat-label>
+                                <mat-select placeholder="Не выбран">
+                                    <mat-option value="option">Всем этим правилам</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </form>
                         <button mat-stroked-button color="primary" class="cl-blue my-20">
                             <mat-icon class="cl-blue">add</mat-icon>
                             Добавить правило
                         </button>
                     </div>
-                    <div class="main__right">
-                        <mat-icon class="main__right-icon cl-gray">groups</mat-icon>
-                        <h4>0 подписчиков соответствуют правилам</h4>
-                        <span class="main__right-text cl-gray">
-                            уточните сегментацию
-                        </span>
+                    <div class="main__right" [ngClass]="{'center-h': channel === 'option1'}">
+                        <ng-container *ngIf="channel === 'option1'; else existSubsc">
+                            <mat-icon class="main__right-icon cl-gray">groups</mat-icon>
+                            <h4>0 подписчиков соответствуют правилам</h4>
+                            <span class="main__right-text cl-gray">
+                                уточните сегментацию
+                            </span>
+                        </ng-container>
+                        <ng-template #existSubsc>
+                            <div class="subscribers-container">
+                                <div class="main__right-header">
+                                    <h4>1245 подписчиков соответствуют правилам</h4>
+                                    <span class="main__right-text cl-gray">
+                                        Смотрите пример ниже
+                                    </span>
+                                </div>
+                                <div class="main__right-body">
+                                    <div *ngFor="let item of segments" class="main__right-body-item">
+                                        <div class="item__avatar">
+                                            <img [src]="item.avatar">
+                                        </div>
+                                        <div class="item__info">
+                                            <span class="item__info-name">{{item.name}}</span>
+                                            <span class="item__info-number">{{item.number}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
                     </div>
-                </div>
-                <div class="step-container__footer">
-                    <button mat-button matStepperPrevious class="cl-blue">Назад</button>
-                    <button mat-raised-button color="primary" matStepperNext class="bg-blue">Далее</button>
                 </div>
             </div>
         </mat-step>
@@ -128,22 +146,24 @@
                                 <mat-radio-button value="2">Запланировать время</mat-radio-button>
                             </mat-radio-group>
                         </form>
-                        <button (click)="send()" mat-stroked-button color="primary" class="cl-blue my-20">
-                            <mat-icon class="cl-blue">add</mat-icon>
+                        <button (click)="send()" mat-raised-button color="primary" class="bg-green my-20">
                             Отправить сейчас
                         </button>
                     </div>
-                    <div class="main__right bg-gray2">
+                    <div class="main__right center-v center-h bg-gray2">
                         <h4>Мы готовы к отправке</h4>
                         <span class="main__right-text cl-gray">
                             Сообщение будет отправлено 12345 пользователям
                         </span>
                     </div>
                 </div>
-                <div class="step-container__footer">
-                    <button mat-button matStepperPrevious class="cl-blue">Назад</button>
-                </div>
             </div>
         </mat-step>
     </mat-horizontal-stepper>
+    <div class="create-area-container__footer">
+        <button mat-button class="cl-blue" *ngIf="stepper.selectedIndex !== 0"
+            (click)="stepper.previous()">Назад</button>
+        <button mat-raised-button color="primary" *ngIf="stepper.selectedIndex !== 2" class="bg-blue"
+            (click)="stepper.next()">Далее</button>
+    </div>
 </div>

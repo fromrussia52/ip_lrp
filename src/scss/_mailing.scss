@@ -1,15 +1,19 @@
 .mailing-container {
-    display: flex;
-    width: 100%;
     height: 100%;
 
     &__aside {
+        height: 100%;
         padding: 20px;
         width: 200px;
         background-color: rgb(245, 246, 247);
     }
 
     main {
-        flex: 1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: calc(100% - 40px);
+        width: calc(100% - 240px);
+        margin: 20px 0 20px 240px
     }
 }
